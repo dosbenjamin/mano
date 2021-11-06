@@ -1,4 +1,4 @@
-import { Image, BlitzPage } from "blitz"
+import { BlitzPage, Image } from "blitz"
 import logo from "public/logo.png"
 
 /*

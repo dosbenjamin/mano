@@ -6,9 +6,10 @@
     "build": "blitz build",
     "start": "blitz start",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "prettier": {
     "semi": false,
@@ -21,10 +22,14 @@
   },
   "dependencies": {
     "blitz": "0.42.0",
-    "react-dom": "18.0.0-alpha-5ca4b0433-20211020",
-    "react": "18.0.0-alpha-5ca4b0433-20211020"
+    "graphql": "16.0.1",
+    "graphql-request": "3.6.1",
+    "react": "18.0.0-alpha-5ca4b0433-20211020",
+    "react-dom": "18.0.0-alpha-5ca4b0433-20211020"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "2.2.2",
+    "@graphql-codegen/typescript": "2.3.1",
     "@types/react": "17.0.34",
     "eslint": "7.32.0",
     "husky": "7.0.4",
