@@ -1,16 +1,16 @@
 import { Box, FormLabel, Input as ChakraInput, InputProps } from "@chakra-ui/react"
-import { forwardRef } from "react"
+import { ForwardedRef, forwardRef } from "react"
 
 type Props = InputProps & {
   label: string
 }
 
-const Input = forwardRef<HTMLInputElement>(({ w = "100%", label, ...rest }: Props, ref) => {
+const Input = forwardRef(({ w = "100%", label, ...rest }: Props, ref) => {
   return (
     <Box w={w}>
       <FormLabel>{label}</FormLabel>
       <ChakraInput
-        ref={ref}
+        ref={ref as ForwardedRef<HTMLInputElement>}
         size="lg"
         borderColor="gray.200"
         _placeholder={{ color: "gray.400" }}
