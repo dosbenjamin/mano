@@ -18,6 +18,7 @@ specifiers:
   pretty-quick: 3.1.1
   react: 18.0.0-alpha-5ca4b0433-20211020
   react-dom: 18.0.0-alpha-5ca4b0433-20211020
+  react-hook-form: 7.19.1
   typescript: ~4.4
 
 dependencies:
@@ -30,6 +31,7 @@ dependencies:
   graphql-request: 3.6.1_graphql@16.0.1
   react: 18.0.0-alpha-5ca4b0433-20211020
   react-dom: 18.0.0-alpha-5ca4b0433-20211020_e5a92d5cc184686b99fd3572b48f64c8
+  react-hook-form: 7.19.1_e5a92d5cc184686b99fd3572b48f64c8
 
 devDependencies:
   "@graphql-codegen/cli": 2.2.2_graphql@16.0.1+typescript@4.4.4
@@ -13226,6 +13228,17 @@ packages:
       use-sidecar: 1.0.5_e5a92d5cc184686b99fd3572b48f64c8
     transitivePeerDependencies:
       - "@types/react"
+    dev: false
+
+  /react-hook-form/7.19.1_e5a92d5cc184686b99fd3572b48f64c8:
+    resolution:
+      {
+        integrity: sha512-e0Oii07qNAa72JeGUT5czVCMwdAFPxmxYvd1Y9oPy2KVD6ZGblN6DG1G7AwL9Bz2lOPFZu15SRNnn0Vpx/eGdg==,
+      }
+    peerDependencies:
+      react: ^16.8.0 || ^17
+    dependencies:
+      react: 18.0.0-alpha-5ca4b0433-20211020
     dev: false
 
   /react-is/16.13.1:

@@ -1,0 +1,39 @@
+type Customer {
+  id: ID! @unique
+  name: String! @unique
+  email: String! @unique
+  phone: String @unique
+  street: String
+  number: String
+  zip: String
+  city: String
+  vat: String
+  country: String
+  estimate: [Estimate]!
+  createdAt: String! @timestamp(operations: [CREATE])
+  updatedAt: String! @timestamp(operations: [UPDATE])
+}
+
+input CustomerInput {
+  name: String!
+  email: String!
+  vat: String
+  phone: String
+  street: String
+  number: String
+  zip: String
+  city: String
+  country: String
+}
+
+type Estimate {
+  id: ID! @unique
+  customer: Customer!
+  createdAt: String!
+  updatedAt: String
+}
+
+type Query {
+  customers: [Customer]!
+  customer(id: ID!): Customer
+}
