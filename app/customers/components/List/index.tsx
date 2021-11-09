@@ -9,7 +9,7 @@ import { useMutation, useQuery, useRouter } from "blitz"
 
 const CustomersList = () => {
   const [customers, { refetch }] = useQuery(getCustomers, undefined)
-  const [remove] = useMutation(removeCustomer)
+  const [removeCustomerMutation] = useMutation(removeCustomer)
   const router = useRouter()
 
   return (
@@ -40,7 +40,10 @@ const CustomersList = () => {
             />
             <RemoveButton
               aria-label="Supprimer le client"
-              onClick={() => remove(id).then(() => refetch())}
+              onClick={async () => {
+                await removeCustomerMutation(id)
+                refetch()
+              }}
             />
           </HStack>
         </ListItem>

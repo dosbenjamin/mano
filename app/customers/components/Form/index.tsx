@@ -28,8 +28,9 @@ const CustomerForm = ({ children, initialValues, onSubmit }: Props) => {
           />
           <Input
             label="Numéro de T.V.A"
-            placeholder="BE0000000"
-            // {...register('vat')}
+            placeholder="BE0775493620"
+            defaultValue={initialValues?.vat || ""}
+            {...register("vat")}
           />
           <Input
             label="E-mail"
