@@ -18,12 +18,13 @@ export type Customer = {
   createdAt: Scalars["String"]
   email: Scalars["String"]
   estimate: Array<Maybe<Estimate>>
-  id: Scalars["ID"]
+  id: Scalars["String"]
   name: Scalars["String"]
   number?: Maybe<Scalars["String"]>
   phone?: Maybe<Scalars["String"]>
   street?: Maybe<Scalars["String"]>
   updatedAt: Scalars["String"]
+  vat?: Maybe<Scalars["String"]>
   zip?: Maybe<Scalars["String"]>
 }
 
@@ -35,6 +36,7 @@ export type CustomerInput = {
   number?: Maybe<Scalars["String"]>
   phone?: Maybe<Scalars["String"]>
   street?: Maybe<Scalars["String"]>
+  vat?: Maybe<Scalars["String"]>
   zip?: Maybe<Scalars["String"]>
 }
 
@@ -44,14 +46,4 @@ export type Estimate = {
   customer: Customer
   id: Scalars["ID"]
   updatedAt?: Maybe<Scalars["String"]>
-}
-
-export type Query = {
-  __typename?: "Query"
-  customer?: Maybe<Customer>
-  customers: Array<Maybe<Customer>>
-}
-
-export type QueryCustomerArgs = {
-  id: Scalars["ID"]
 }

@@ -1,5 +1,5 @@
 type Customer {
-  id: ID! @unique
+  id: String! @unique
   name: String! @unique
   email: String! @unique
   phone: String @unique
@@ -31,9 +31,4 @@ type Estimate {
   customer: Customer!
   createdAt: String!
   updatedAt: String
-}
-
-type Query {
-  customers: [Customer]!
-  customer(id: ID!): Customer
 }
