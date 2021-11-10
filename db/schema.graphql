@@ -26,9 +26,21 @@ input CustomerInput {
   country: String
 }
 
+type EstimateItem {
+  id: ID! @unique
+  description: String!
+  quantity: Int!
+  vat: Float!
+  unitPrice: Float!
+  totalPrice: Float!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Estimate {
   id: ID! @unique
   customer: Customer!
+  estimates: [EstimateItem]!
   createdAt: String!
   updatedAt: String
 }
