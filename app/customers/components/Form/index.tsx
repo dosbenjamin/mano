@@ -14,7 +14,7 @@ const CustomerForm = ({ children, initialValues, onSubmit }: Props) => {
   const { register, handleSubmit } = useForm()
 
   return (
-    <Container as="form" spacing="16" onSubmit={handleSubmit(onSubmit)}>
+    <Container as="form" onSubmit={handleSubmit(onSubmit)}>
       <HStack w="100%" justifyContent="space-between">
         {children}
       </HStack>

@@ -1,5 +1,6 @@
-import { Box, Heading, HStack } from "@chakra-ui/react"
+import { Box, HStack } from "@chakra-ui/react"
 import EditButton from "app/components/EditButton"
+import Header from "app/components/Header"
 import List from "app/components/List"
 import ListItem from "app/components/ListItem"
 import RemoveButton from "app/components/RemoveButton"
@@ -12,7 +13,9 @@ import GrayButton from "../../components/GrayButton"
 import Layout from "../../components/Layout"
 
 const CustomersList = () => {
-  const [customers, { refetch }] = useQuery(getCustomers, undefined)
+  const [customers, { refetch }] = useQuery(getCustomers, undefined, {
+    refetchOnWindowFocus: false,
+  })
   const [deleteCustomerMutation] = useMutation(deleteCustomer)
   const router = useRouter()
 
@@ -61,13 +64,10 @@ const Customers: BlitzPage = () => {
 
   return (
     <Layout>
-      <Container spacing="16">
-        <HStack justifyContent="space-between">
-          <Heading as="h1" fontSize="4xl">
-            Tous les clients
-          </Heading>
+      <Container>
+        <Header title="Tous les clients">
           <GrayButton onClick={() => router.push("/customers/new")}>Ajouter un client</GrayButton>
-        </HStack>
+        </Header>
         <Suspense fallback="Loading...">
           <CustomersList />
         </Suspense>

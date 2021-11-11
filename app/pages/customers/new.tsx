@@ -1,5 +1,5 @@
-import { Heading } from "@chakra-ui/react"
 import GrayButton from "app/components/GrayButton"
+import Header from "app/components/Header"
 import Layout from "app/components/Layout"
 import CustomerForm from "app/customers/components/Form"
 import createCustomer from "app/customers/mutations/createCustomer"
@@ -11,10 +11,9 @@ const NewCustomer: BlitzPage = () => {
   return (
     <Layout>
       <CustomerForm onSubmit={(data) => createCustomerMutation(data)}>
-        <Heading as="h1" fontSize="4xl">
-          Ajouter un client
-        </Heading>
-        <GrayButton type="submit">Sauvegarder</GrayButton>
+        <Header title="Ajouter un client">
+          <GrayButton type="submit">Sauvegarder</GrayButton>
+        </Header>
       </CustomerForm>
     </Layout>
   )

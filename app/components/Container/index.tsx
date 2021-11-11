@@ -12,6 +12,7 @@ const Container = ({ h = "600px", w = "1024px", children, ...rest }: Props) => {
       borderRadius="lg"
       padding="16"
       boxShadow="xl"
+      spacing="16"
       {...rest}
     >
       {children}
