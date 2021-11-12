@@ -10,8 +10,8 @@ type Customer {
   vat: String
   country: String
   estimate: [Estimate]!
-  createdAt: String! @timestamp(operations: [CREATE])
-  updatedAt: String! @timestamp(operations: [UPDATE])
+  createdAt: String!
+  updatedAt: String!
 }
 
 input CustomerInput {
@@ -31,14 +31,18 @@ type EstimateItem {
   description: String!
   quantity: Int!
   vat: Float!
+  priceWithoutVat: Float!
+  priceWithVat: Float!
   unitPrice: Float!
-  totalPrice: Float!
   createdAt: String!
   updatedAt: String!
 }
 
 type Estimate {
   id: ID! @unique
+  description: String!
+  priceWithoutVat: Float!
+  priceWithVat: Float!
   customer: Customer!
   estimates: [EstimateItem]!
   createdAt: String!
