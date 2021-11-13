@@ -1,23 +1,23 @@
 import { HStack, VStack } from "@chakra-ui/react"
 import Container from "app/components/Container"
+import Header from "app/components/Header"
 import Input from "app/components/Input"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { CustomerInput } from "__generated__/graphql"
 
 type Props = {
+  title: string
   children?: React.ReactNode
   initialValues?: CustomerInput
   onSubmit: SubmitHandler<CustomerInput>
 }
 
-const CustomerForm = ({ children, initialValues, onSubmit }: Props) => {
+const CustomerForm = ({ children, title, initialValues, onSubmit }: Props) => {
   const { register, handleSubmit } = useForm()
 
   return (
     <Container as="form" onSubmit={handleSubmit(onSubmit)}>
-      <HStack w="100%" justifyContent="space-between">
-        {children}
-      </HStack>
+      <Header title={title}>{children}</Header>
       <HStack spacing="8" alignItems="flex-start">
         <VStack alignItems="flex-start" spacing="4" w="100%">
           <Input
