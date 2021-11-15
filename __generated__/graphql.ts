@@ -15,15 +15,13 @@ export type Customer = {
   __typename?: "Customer"
   city?: Maybe<Scalars["String"]>
   country?: Maybe<Scalars["String"]>
-  createdAt: Scalars["String"]
   email: Scalars["String"]
-  estimate: Array<Maybe<Estimate>>
-  id: Scalars["String"]
+  estimates: Array<Maybe<Estimate>>
+  id: Scalars["ID"]
   name: Scalars["String"]
   number?: Maybe<Scalars["String"]>
   phone?: Maybe<Scalars["String"]>
   street?: Maybe<Scalars["String"]>
-  updatedAt: Scalars["String"]
   vat?: Maybe<Scalars["String"]>
   zip?: Maybe<Scalars["String"]>
 }
@@ -42,25 +40,26 @@ export type CustomerInput = {
 
 export type Estimate = {
   __typename?: "Estimate"
-  createdAt: Scalars["String"]
   customer: Customer
-  description: Scalars["String"]
-  estimates: Array<Maybe<EstimateItem>>
-  id: Scalars["ID"]
+  description?: Maybe<Scalars["String"]>
   priceWithVat: Scalars["Float"]
   priceWithoutVat: Scalars["Float"]
-  updatedAt?: Maybe<Scalars["String"]>
+  services: Array<Service>
 }
 
-export type EstimateItem = {
-  __typename?: "EstimateItem"
-  createdAt: Scalars["String"]
+export type Query = {
+  __typename?: "Query"
+  customers: Array<Maybe<Customer>>
+  estimates: Array<Maybe<Estimate>>
+}
+
+export type Service = {
+  __typename?: "Service"
   description: Scalars["String"]
-  id: Scalars["ID"]
+  estimate: Estimate
   priceWithVat: Scalars["Float"]
   priceWithoutVat: Scalars["Float"]
   quantity: Scalars["Int"]
   unitPrice: Scalars["Float"]
-  updatedAt: Scalars["String"]
   vat: Scalars["Float"]
 }

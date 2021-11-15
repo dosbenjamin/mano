@@ -1,5 +1,5 @@
 type Customer {
-  id: String! @unique
+  id: ID! @unique
   name: String! @unique
   email: String! @unique
   phone: String @unique
@@ -9,42 +9,40 @@ type Customer {
   city: String
   vat: String
   country: String
-  estimate: [Estimate]!
-  createdAt: String!
-  updatedAt: String!
+  estimates: [Estimate]! @relation
 }
 
 input CustomerInput {
   name: String!
   email: String!
-  vat: String
   phone: String
   street: String
   number: String
   zip: String
   city: String
+  vat: String
   country: String
 }
 
-type EstimateItem {
-  id: ID! @unique
+type Service {
   description: String!
   quantity: Int!
   vat: Float!
   priceWithoutVat: Float!
   priceWithVat: Float!
   unitPrice: Float!
-  createdAt: String!
-  updatedAt: String!
+  estimate: Estimate!
 }
 
 type Estimate {
-  id: ID! @unique
-  description: String!
+  description: String
   priceWithoutVat: Float!
   priceWithVat: Float!
   customer: Customer!
-  estimates: [EstimateItem]!
-  createdAt: String!
-  updatedAt: String
+  services: [Service!]! @relation
+}
+
+type Query {
+  customers: [Customer]!
+  estimates: [Estimate]!
 }
