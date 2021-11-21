@@ -2,14 +2,14 @@ import { HStack, VStack } from "@chakra-ui/react"
 import Container from "app/components/Container"
 import Header from "app/components/Header"
 import Input from "app/components/Input"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { CustomerInput } from "__generated__/graphql"
+import type { CustomerData, CustomerInput } from "app/customers/types"
+import { useForm } from "react-hook-form"
 
 type Props = {
   title: string
   children?: React.ReactNode
   initialValues?: CustomerInput
-  onSubmit: SubmitHandler<CustomerInput>
+  onSubmit: (data: CustomerData) => void
 }
 
 const CustomerForm = ({ children, title, initialValues, onSubmit }: Props) => {

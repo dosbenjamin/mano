@@ -1,8 +1,8 @@
 import db from "db"
 import { gql } from "graphql-request"
-import { CustomerInput } from "__generated__/graphql"
+import type { CustomerData } from "../types"
 
-const updateCustomer = async ({ id, data }: { id: string; data: CustomerInput }) => {
+const updateCustomer = async ({ id, data }: { id: string; data: CustomerData }) => {
   return db.request(
     gql`
       mutation UpdateCustomer($id: ID!, $data: CustomerInput!) {

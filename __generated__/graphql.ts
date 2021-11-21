@@ -17,19 +17,6 @@ export type Customer = {
   country?: Maybe<Scalars["String"]>
   email: Scalars["String"]
   estimates: Array<Maybe<Estimate>>
-  id: Scalars["ID"]
-  name: Scalars["String"]
-  number?: Maybe<Scalars["String"]>
-  phone?: Maybe<Scalars["String"]>
-  street?: Maybe<Scalars["String"]>
-  vat?: Maybe<Scalars["String"]>
-  zip?: Maybe<Scalars["String"]>
-}
-
-export type CustomerInput = {
-  city?: Maybe<Scalars["String"]>
-  country?: Maybe<Scalars["String"]>
-  email: Scalars["String"]
   name: Scalars["String"]
   number?: Maybe<Scalars["String"]>
   phone?: Maybe<Scalars["String"]>

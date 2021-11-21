@@ -1,12 +1,12 @@
 import db from "db"
 import { gql } from "graphql-request"
-import { Customer } from "__generated__/graphql"
+import type { CustomerData } from "../types"
 
 const getCustomer = async (id: string) => {
   const {
     findCustomerByID,
   }: {
-    findCustomerByID: Customer
+    findCustomerByID: CustomerData
   } = await db.request(
     gql`
       query GetCustomer($id: ID!) {

@@ -1,13 +1,12 @@
 import db from "db"
 import { gql } from "graphql-request"
-import { CustomerInput } from "__generated__/graphql"
+import type { CustomerInput } from "../types"
 
 const createCustomer = async (data: CustomerInput) => {
   return db.request(
     gql`
       mutation CreateCustomer($data: CustomerInput!) {
         createCustomer(data: $data) {
-          id: _id
           name
           email
           phone

@@ -1,5 +1,4 @@
 type Customer {
-  id: ID! @unique
   name: String! @unique
   email: String! @unique
   phone: String @unique
@@ -10,18 +9,6 @@ type Customer {
   vat: String
   country: String
   estimates: [Estimate]! @relation
-}
-
-input CustomerInput {
-  name: String!
-  email: String!
-  phone: String
-  street: String
-  number: String
-  zip: String
-  city: String
-  vat: String
-  country: String
 }
 
 type Service {
