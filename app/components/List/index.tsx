@@ -1,13 +1,14 @@
-import { HStack, List as ChakraList, VStack } from "@chakra-ui/react"
+import { HStack, List as ChakraList, StackProps, VStack } from "@chakra-ui/react"
 
 type Props = {
+  header?: React.ReactNode
   children: React.ReactNode
-  header: React.ReactNode
+  rest?: StackProps
 }
 
-const List = ({ header, children }: Props) => {
+const List = ({ header, children, rest }: Props) => {
   return (
-    <VStack>
+    <VStack width="100%">
       <HStack display="flex" w="100%" padding="4" spacing="4">
         {header}
       </HStack>

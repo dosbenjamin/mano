@@ -5,9 +5,12 @@ type Props = InputProps & {
   label: string
 }
 
-const Input = forwardRef(({ w = "100%", label, ...rest }: Props, ref) => {
+const Input = forwardRef(({ w = "100%", label, flexShrink, ...rest }: Props, ref) => {
   return (
-    <Box w={w}>
+    <Box
+      w={w}
+      flexShrink={flexShrink}
+    >
       <FormLabel>{label}</FormLabel>
       <ChakraInput
         ref={ref as ForwardedRef<HTMLInputElement>}

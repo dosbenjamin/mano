@@ -6,43 +6,42 @@ import CustomerForm from "app/customers/components/Form"
 import deleteCustomer from "app/customers/mutations/deleteCustomer"
 import updateCustomer from "app/customers/mutations/updateCustomer"
 import getCustomer from "app/customers/queries/getCustomer"
-import { BlitzPage, useMutation, useParam, useQuery, useRouter } from "blitz"
-import { Suspense } from "react"
+import { CustomerData } from "app/customers/types"
+import { BlitzPage, GetServerSideProps, useMutation, useRouter } from "blitz"
 
-const CustomerItem = () => {
-  const id = useParam("id") as string
-  const [customer] = useQuery(getCustomer, id, { refetchOnWindowFocus: false })
+type Props = { customer: CustomerData }
+type Params = { id: string }
+
+export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ params }) => {
+  const { id } = params!
+  const customer = await getCustomer(id)
+  return { props: { customer } }
+}
+
+const Customer: BlitzPage<Props> = ({ customer }) => {
   const [updateCustomerMutation] = useMutation(updateCustomer)
   const [deleteCustomerMutation] = useMutation(deleteCustomer)
   const router = useRouter()
 
   return (
-    <CustomerForm
-      title="Modifier un client"
-      onSubmit={(data) => updateCustomerMutation({ id, data })}
-      initialValues={customer}
-    >
-      <HStack>
-        <RedButton
-          onClick={async () => {
-            await deleteCustomerMutation(id)
-            router.push("/customers")
-          }}
-        >
-          Supprimer
-        </RedButton>
-        <GrayButton type="submit">Sauvegarder</GrayButton>
-      </HStack>
-    </CustomerForm>
-  )
-}
-
-const Customer: BlitzPage = () => {
-  return (
     <Layout>
-      <Suspense fallback="Loading...">
-        <CustomerItem />
-      </Suspense>
+      <CustomerForm
+        title="Modifier un client"
+        onSubmit={(data) => updateCustomerMutation({ id: customer.id, data })}
+        initialValues={customer}
+      >
+        <HStack>
+          <RedButton
+            onClick={async () => {
+              await deleteCustomerMutation(customer.id)
+              router.push("/customers")
+            }}
+          >
+            Supprimer
+          </RedButton>
+          <GrayButton type="submit">Sauvegarder</GrayButton>
+        </HStack>
+      </CustomerForm>
     </Layout>
   )
 }
