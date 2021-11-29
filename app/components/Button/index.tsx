@@ -1,8 +1,9 @@
-import { Button as ChakraButton, ButtonProps } from "@chakra-ui/react"
+import { Button as ChakraButton, ButtonProps, LinkProps } from "@chakra-ui/react"
 
-export type Props = ButtonProps & {
-  children: React.ReactNode
-}
+export type Props = ButtonProps &
+  LinkProps & {
+    children: React.ReactNode
+  }
 
 const Button = ({ children, ...rest }: Props) => {
   return (
