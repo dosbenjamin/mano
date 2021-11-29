@@ -36,6 +36,8 @@ const ServiceLine = ({
   const updatePriceWithoutVat = () => {
     const price = quantity * unitPrice
     setPriceWithoutVat(price)
+
+    // @ts-ignore
     setValue(`services.${index}.priceWithoutVat`, price)
   }
 

@@ -5,7 +5,7 @@ import Header from "app/components/Header"
 import Input from "app/components/Input"
 import type { CustomerData } from "app/customers/types"
 import type { EstimateData, EstimateInput } from "app/estimates/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import type { Service } from "__generated__/graphql"
 import ServiceLine from "../ServiceLine"
@@ -16,9 +16,10 @@ type Props = {
   estimate?: EstimateData
   title: string
   onSubmit: (data: EstimateInput) => void
+  setPDF: (data: EstimateInput) => void
 }
 
-const EstimateForm = ({ children, customers = [], estimate, title, onSubmit }: Props) => {
+const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, setPDF }: Props) => {
   const [priceWithoutVat, setPriceWithoutVat] = useState(estimate?.priceWithoutVat || 0)
   const [priceWithVat, setPriceWithVat] = useState(estimate?.priceWithVat || 0)
 
@@ -62,6 +63,8 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit }: P
     setPriceWithVat(priceWithVat)
     setValue("priceWithVat", priceWithoutVat)
   }
+
+  useEffect(() => setPDF(getValues()), [priceWithoutVat, priceWithVat])
 
   return (
     <Container as="form" onSubmit={handleSubmit(onSubmit)}>

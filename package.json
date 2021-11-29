@@ -25,6 +25,7 @@
     "@chakra-ui/react": "1.6.12",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@react-pdf/renderer": "2.0.21",
     "blitz": "0.42.0",
     "framer-motion": "^4",
     "graphql": "16.0.1",
