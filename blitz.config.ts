@@ -9,5 +9,17 @@ const config: BlitzConfig = {
     return config
   },
   */
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.woff/,
+      use: [
+        {
+          loader: "url-loader",
+        },
+      ],
+    })
+
+    return config
+  },
 }
 module.exports = config

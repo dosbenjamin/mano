@@ -16,7 +16,7 @@ type Props = {
   estimate?: EstimateData
   title: string
   onSubmit: (data: EstimateInput) => void
-  setPDF: (data: EstimateInput) => void
+  setPDF?: (data: EstimateInput) => void
 }
 
 const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, setPDF }: Props) => {
@@ -64,7 +64,7 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
     setValue("priceWithVat", priceWithoutVat)
   }
 
-  useEffect(() => setPDF(getValues()), [priceWithoutVat, priceWithVat])
+  useEffect(() => setPDF && setPDF(getValues()), [priceWithoutVat, priceWithVat])
 
   return (
     <Container as="form" onSubmit={handleSubmit(onSubmit)}>
