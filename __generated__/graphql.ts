@@ -43,7 +43,6 @@ export type Query = {
 export type Service = {
   __typename?: "Service"
   description: Scalars["String"]
-  estimate: Estimate
   priceWithVat: Scalars["Float"]
   priceWithoutVat: Scalars["Float"]
   quantity: Scalars["Int"]

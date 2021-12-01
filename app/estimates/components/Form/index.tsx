@@ -7,7 +7,6 @@ import type { CustomerData } from "app/customers/types"
 import type { EstimateData, EstimateInput } from "app/estimates/types"
 import { useEffect, useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
-import type { Service } from "__generated__/graphql"
 import ServiceLine from "../ServiceLine"
 
 type Props = {
@@ -29,7 +28,7 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
       description: estimate?.description || "",
       priceWithoutVat,
       priceWithVat,
-      services: estimate?.services.data || [],
+      services: estimate?.services || [],
     },
   })
 
@@ -40,10 +39,9 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
   } = useFieldArray({
     control,
     name: "services",
-  } as never)
+  })
 
   const updateTotalPrices = () => {
-    // @ts-ignore
     const services = getValues("services")
 
     const { priceWithoutVat, priceWithVat } = services.reduce(
@@ -137,7 +135,7 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
             Ajouter un bien/service
           </GrayButton>
           <Accordion maxHeight="300px" w="100%" overflowY="scroll" listStyleType="none" allowToggle>
-            {(services as Array<Service & { id: string }>).map(({ id, ...rest }, index) => (
+            {services.map(({ id, ...rest }, index) => (
               <ServiceLine
                 key={id}
                 index={index}

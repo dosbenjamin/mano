@@ -17,14 +17,12 @@ const createEstimate = async ({
           priceWithVat
           priceWithoutVat
           services {
-            data {
-              description
-              quantity
-              vat
-              unitPrice
-              priceWithVat
-              priceWithoutVat
-            }
+            description
+            quantity
+            vat
+            unitPrice
+            priceWithVat
+            priceWithoutVat
           }
         }
       }
@@ -34,11 +32,9 @@ const createEstimate = async ({
         description,
         priceWithVat,
         priceWithoutVat,
+        services,
         customer: {
           connect: customer,
-        },
-        services: {
-          create: services,
         },
       },
     }

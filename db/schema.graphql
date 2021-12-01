@@ -11,14 +11,13 @@ type Customer {
   estimates: [Estimate]! @relation
 }
 
-type Service {
+type Service @embedded {
   description: String!
   quantity: Int!
   vat: Float!
   priceWithoutVat: Float!
   priceWithVat: Float!
   unitPrice: Float!
-  estimate: Estimate!
 }
 
 type Estimate {
@@ -26,7 +25,7 @@ type Estimate {
   priceWithoutVat: Float!
   priceWithVat: Float!
   customer: Customer!
-  services: [Service!]! @relation
+  services: [Service!]!
 }
 
 type Query {

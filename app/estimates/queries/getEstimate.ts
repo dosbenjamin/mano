@@ -19,14 +19,12 @@ const getEstimate = async (id: string) => {
             id: _id
           }
           services {
-            data {
-              description
-              quantity
-              vat
-              priceWithoutVat
-              priceWithVat
-              unitPrice
-            }
+            description
+            quantity
+            vat
+            priceWithoutVat
+            priceWithVat
+            unitPrice
           }
         }
       }
