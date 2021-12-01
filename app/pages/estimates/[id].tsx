@@ -4,6 +4,8 @@ import GrayButton from "app/components/GrayButton"
 import RedButton from "app/components/RedButton"
 import getCustomers from "app/customers/queries/getCustomers"
 import type { CustomerData } from "app/customers/types"
+import deleteEstimate from "app/estimates/mutations/deleteEstimate"
+import updateEstimate from "app/estimates/mutations/updateEstimate"
 import getEstimate from "app/estimates/queries/getEstimate"
 import type { EstimateData, EstimateInput } from "app/estimates/types"
 import { BlitzPage, GetServerSideProps } from "blitz"
@@ -182,25 +184,28 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ pa
   return { props: { estimate, customers } }
 }
 
-const Estimate: BlitzPage<Props> = (props) => {
-  const [estimate, setEstimate] = useState<EstimateInput>()
+const Estimate: BlitzPage<Props> = ({ estimate, ...rest }) => {
+  const [pdf, setPdf] = useState<EstimateInput>()
 
   return (
     <Layout>
       <EstimateForm
         title="Modifier le devis"
-        onSubmit={(data) => {
-          setEstimate(data)
+        onSubmit={async (data) => {
+          console.log(data)
+          await updateEstimate({ id: estimate.id, data })
+          setPdf(data)
         }}
-        setPDF={setEstimate}
-        {...props}
+        setPDF={setPdf}
+        estimate={estimate}
+        {...rest}
       >
         <HStack>
-          <RedButton>Supprimer</RedButton>
+          <RedButton onClick={() => deleteEstimate(estimate.id)}>Supprimer</RedButton>
           <Suspense fallback="loading...">
-            <DownloadLink estimate={estimate} />
+            <DownloadLink estimate={pdf} />
           </Suspense>
-          <GrayButton>Sauvegarder</GrayButton>
+          <GrayButton type="submit">Sauvegarder</GrayButton>
         </HStack>
       </EstimateForm>
     </Layout>
