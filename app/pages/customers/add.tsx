@@ -16,4 +16,6 @@ const AddCustomer: BlitzPage = () => {
   )
 }
 
+AddCustomer.authenticate = { redirectTo: "/login" }
+
 export default AddCustomer

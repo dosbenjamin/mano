@@ -3,11 +3,9 @@ import { gql } from "graphql-request"
 import type { CustomerData } from "../types"
 
 const getCustomers = async () => {
-  const {
-    customers,
-  }: {
+  const { customers } = await db.request<{
     customers: { data: CustomerData[] }
-  } = await db.request(
+  }>(
     gql`
       query GetCustomers {
         customers {

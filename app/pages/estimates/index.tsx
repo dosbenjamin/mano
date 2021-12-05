@@ -7,15 +7,16 @@ import Layout from "app/components/Layout"
 import List from "app/components/List"
 import ListItem from "app/components/ListItem"
 import RemoveButton from "app/components/RemoveButton"
+import deleteEstimate from "app/estimates/mutations/deleteEstimate"
 import getEstimates from "app/estimates/queries/getEstimates"
-import { BlitzPage, useQuery, useRouter } from "blitz"
+import { BlitzPage, Link, useMutation, useQuery, useRouter } from "blitz"
 import { Suspense } from "react"
 
 const EstimatesList = () => {
   const [estimates, { refetch }] = useQuery(getEstimates, undefined, {
     refetchOnWindowFocus: false,
   })
-  // const [deleteCustomerMutation] = useMutation(deleteCustomer)
+  const [deleteEstimateMutation] = useMutation(deleteEstimate)
   const router = useRouter()
 
   return (
@@ -34,10 +35,10 @@ const EstimatesList = () => {
       {estimates.map(({ id, customer }) => (
         <ListItem key={id}>
           <Box w="240px" textAlign="left">
-            {customer.name}
+            {customer?.name}
           </Box>
           <Box w="240px" textAlign="left">
-            {/* {email} */}
+            {customer?.email || "/"}
           </Box>
           <HStack spacing="2" marginLeft="auto !important">
             <EditButton
@@ -47,7 +48,7 @@ const EstimatesList = () => {
             <RemoveButton
               aria-label="Supprimer le client"
               onClick={async () => {
-                // await deleteCustomerMutation(id)
+                await deleteEstimateMutation(id)
                 refetch()
               }}
             />
@@ -59,13 +60,15 @@ const EstimatesList = () => {
 }
 
 const Estimates: BlitzPage = () => {
-  const router = useRouter()
-
   return (
     <Layout>
       <Container>
         <Header title="Tous les devis">
-          <GrayButton onClick={() => router.push("/estimates/new")}>Créer un devis</GrayButton>
+          <Link href="/estimates/create" passHref>
+            <a>
+              <GrayButton as="span">Créer un devis</GrayButton>
+            </a>
+          </Link>
         </Header>
         <Suspense fallback="Loading...">
           <EstimatesList />
@@ -74,5 +77,7 @@ const Estimates: BlitzPage = () => {
     </Layout>
   )
 }
+
+Estimates.authenticate = { redirectTo: "/login" }
 
 export default Estimates

@@ -18,9 +18,7 @@ const createCustomer = async (data: CustomerInput) => {
         }
       }
     `,
-    {
-      data: { ...data },
-    }
+    { data }
   )
 }
 

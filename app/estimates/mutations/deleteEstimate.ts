@@ -9,6 +9,14 @@ const deleteEstimate = async (id: string) => {
           description
           priceWithVat
           priceWithoutVat
+          services {
+            description
+            quantity
+            vat
+            priceWithoutVat
+            priceWithVat
+            unitPrice
+          }
         }
       }
     `,

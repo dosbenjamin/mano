@@ -20,7 +20,7 @@ const updateCustomer = async ({ id, data }: { id: string; data: CustomerData }) 
     `,
     {
       id,
-      data: { ...data },
+      data,
     }
   )
 }

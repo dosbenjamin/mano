@@ -46,4 +46,6 @@ const Customer: BlitzPage<Props> = ({ customer }) => {
   )
 }
 
+Customer.authenticate = { redirectTo: "/login" }
+
 export default Customer

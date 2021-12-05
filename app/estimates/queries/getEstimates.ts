@@ -3,11 +3,9 @@ import { gql } from "graphql-request"
 import type { EstimateData } from "../types"
 
 const getEstimates = async () => {
-  const {
-    estimates,
-  }: {
+  const { estimates } = await db.request<{
     estimates: { data: EstimateData[] }
-  } = await db.request(
+  }>(
     gql`
       query GetEstimates {
         estimates {
@@ -15,6 +13,7 @@ const getEstimates = async () => {
             id: _id
             customer {
               name
+              email
             }
           }
         }

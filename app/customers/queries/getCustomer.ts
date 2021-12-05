@@ -3,11 +3,9 @@ import { gql } from "graphql-request"
 import type { CustomerData } from "../types"
 
 const getCustomer = async (id: string) => {
-  const {
-    findCustomerByID,
-  }: {
+  const { findCustomerByID: customer } = await db.request<{
     findCustomerByID: CustomerData
-  } = await db.request(
+  }>(
     gql`
       query GetCustomer($id: ID!) {
         findCustomerByID(id: $id) {
@@ -15,13 +13,18 @@ const getCustomer = async (id: string) => {
           name
           phone
           email
+          street
+          number
+          city
+          zip
+          country
         }
       }
     `,
     { id }
   )
 
-  return findCustomerByID
+  return customer
 }
 
 export default getCustomer

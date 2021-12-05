@@ -25,4 +25,6 @@ const CreateEstimate: BlitzPage<Props> = (props) => {
   )
 }
 
+CreateEstimate.authenticate = { redirectTo: "/login" }
+
 export default CreateEstimate
