@@ -59,7 +59,7 @@ const config: BlitzConfig = {
         return {
           ...rest,
           userId: user.id,
-          expiresAt: new Date(expiresAt),
+          expiresAt: new Date(expiresAt!),
         }
       },
       createSession: async ({ userId, ...sessionInput }) => {
