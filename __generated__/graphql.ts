@@ -27,8 +27,10 @@ export type Customer = {
 
 export type Estimate = {
   __typename?: "Estimate"
-  customer: Customer
+  creationDate: Scalars["String"]
+  customer?: Maybe<Customer>
   description?: Maybe<Scalars["String"]>
+  expirationDate: Scalars["String"]
   priceWithVat: Scalars["Float"]
   priceWithoutVat: Scalars["Float"]
   services: Array<Service>
@@ -38,6 +40,17 @@ export type Query = {
   __typename?: "Query"
   customers: Array<Maybe<Customer>>
   estimates: Array<Maybe<Estimate>>
+  findSessionByHandle?: Maybe<Session>
+  findUserByEmail?: Maybe<User>
+  users?: Maybe<Array<User>>
+}
+
+export type QueryFindSessionByHandleArgs = {
+  handle: Scalars["String"]
+}
+
+export type QueryFindUserByEmailArgs = {
+  email: Scalars["String"]
 }
 
 export type Service = {
@@ -48,4 +61,24 @@ export type Service = {
   quantity: Scalars["Int"]
   unitPrice: Scalars["Float"]
   vat: Scalars["Float"]
+}
+
+export type Session = {
+  __typename?: "Session"
+  antiCSRFToken?: Maybe<Scalars["String"]>
+  expiresAt?: Maybe<Scalars["String"]>
+  handle: Scalars["String"]
+  hashedSessionToken?: Maybe<Scalars["String"]>
+  privateData?: Maybe<Scalars["String"]>
+  publicData?: Maybe<Scalars["String"]>
+  user: User
+}
+
+export type User = {
+  __typename?: "User"
+  email: Scalars["String"]
+  hashedPassword?: Maybe<Scalars["String"]>
+  name?: Maybe<Scalars["String"]>
+  role: Scalars["String"]
+  sessions?: Maybe<Array<Session>>
 }

@@ -1,3 +1,21 @@
+type User {
+  name: String
+  email: String! @unique
+  hashedPassword: String
+  role: String!
+  sessions: [Session!] @relation
+}
+
+type Session {
+  expiresAt: String
+  handle: String! @unique
+  user: User!
+  hashedSessionToken: String
+  antiCSRFToken: String
+  publicData: String
+  privateData: String
+}
+
 type Customer {
   name: String! @unique
   email: String! @unique
@@ -24,11 +42,16 @@ type Estimate {
   description: String
   priceWithoutVat: Float!
   priceWithVat: Float!
-  customer: Customer!
+  customer: Customer
+  creationDate: String!
+  expirationDate: String!
   services: [Service!]!
 }
 
 type Query {
   customers: [Customer]!
   estimates: [Estimate]!
+  users: [User!]
+  findUserByEmail(email: String!): User @index(name: "unique_User_email")
+  findSessionByHandle(handle: String!): Session @index(name: "unique_Session_handle")
 }
