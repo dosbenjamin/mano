@@ -4,7 +4,7 @@ import type { EstimateInput } from "../types"
 
 const updateEstimate = async ({
   id,
-  data: { description, priceWithVat, priceWithoutVat, customer, services },
+  data: { customer, ...rest },
 }: {
   id: string
   data: EstimateInput
@@ -16,6 +16,8 @@ const updateEstimate = async ({
           description
           priceWithVat
           priceWithoutVat
+          creationDate
+          expirationDate
           services {
             description
             quantity
@@ -30,13 +32,10 @@ const updateEstimate = async ({
     {
       id,
       data: {
-        description,
-        priceWithVat,
-        priceWithoutVat,
-        services,
         customer: {
           connect: customer,
         },
+        ...rest,
       },
     }
   )

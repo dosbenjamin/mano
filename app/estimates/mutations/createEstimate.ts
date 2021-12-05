@@ -2,13 +2,7 @@ import db from "db"
 import { gql } from "graphql-request"
 import type { EstimateInput } from "../types"
 
-const createEstimate = async ({
-  description,
-  priceWithVat,
-  priceWithoutVat,
-  customer,
-  services,
-}: EstimateInput) => {
+const createEstimate = async ({ customer, ...rest }: EstimateInput) => {
   await db.request(
     gql`
       mutation CreateEstimate($data: EstimateInput!) {
@@ -16,6 +10,8 @@ const createEstimate = async ({
           description
           priceWithVat
           priceWithoutVat
+          creationDate
+          expirationDate
           services {
             description
             quantity
@@ -29,13 +25,10 @@ const createEstimate = async ({
     `,
     {
       data: {
-        description,
-        priceWithVat,
-        priceWithoutVat,
-        services,
         customer: {
           connect: customer,
         },
+        ...rest,
       },
     }
   )

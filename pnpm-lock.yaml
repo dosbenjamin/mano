@@ -10,6 +10,7 @@ specifiers:
   "@react-pdf/renderer": 2.0.21
   "@types/react": 17.0.34
   blitz: 0.42.0
+  dayjs: 1.10.7
   eslint: 7.32.0
   framer-motion: ^4
   graphql: 16.0.1
@@ -21,6 +22,7 @@ specifiers:
   react: 18.0.0-alpha-5ca4b0433-20211020
   react-dom: 18.0.0-alpha-5ca4b0433-20211020
   react-hook-form: 7.19.1
+  react-icons: 4.3.1
   typescript: ~4.4
   url-loader: 4.1.1
 
@@ -31,12 +33,14 @@ dependencies:
   "@emotion/styled": 11.3.0_20b0ea294d175f5c7a05c9a32141875f
   "@react-pdf/renderer": 2.0.21_e5a92d5cc184686b99fd3572b48f64c8
   blitz: 0.42.0_5f84b0adbba9069f22956d1fbd5c5d66
+  dayjs: 1.10.7
   framer-motion: 4.1.17_809e898db569a1fe7ae9ea851da8594e
   graphql: 16.0.1
   graphql-request: 3.6.1_graphql@16.0.1
   react: 18.0.0-alpha-5ca4b0433-20211020
   react-dom: 18.0.0-alpha-5ca4b0433-20211020_e5a92d5cc184686b99fd3572b48f64c8
   react-hook-form: 7.19.1_e5a92d5cc184686b99fd3572b48f64c8
+  react-icons: 4.3.1_e5a92d5cc184686b99fd3572b48f64c8
 
 devDependencies:
   "@graphql-codegen/cli": 2.2.2_graphql@16.0.1+typescript@4.4.4
@@ -7235,6 +7239,13 @@ packages:
       }
     dev: true
 
+  /dayjs/1.10.7:
+    resolution:
+      {
+        integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==,
+      }
+    dev: false
+
   /debounce/1.2.1:
     resolution:
       {
@@ -13644,6 +13655,17 @@ packages:
       }
     peerDependencies:
       react: ^16.8.0 || ^17
+    dependencies:
+      react: 18.0.0-alpha-5ca4b0433-20211020
+    dev: false
+
+  /react-icons/4.3.1_e5a92d5cc184686b99fd3572b48f64c8:
+    resolution:
+      {
+        integrity: sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==,
+      }
+    peerDependencies:
+      react: "*"
     dependencies:
       react: 18.0.0-alpha-5ca4b0433-20211020
     dev: false

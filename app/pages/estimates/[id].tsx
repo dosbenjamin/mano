@@ -2,13 +2,13 @@ import { HStack } from "@chakra-ui/react"
 import { Document, Font, Link, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer"
 import GrayButton from "app/components/GrayButton"
 import RedButton from "app/components/RedButton"
-import getCustomers from "app/customers/queries/getCustomers"
 import type { CustomerData } from "app/customers/types"
 import deleteEstimate from "app/estimates/mutations/deleteEstimate"
 import updateEstimate from "app/estimates/mutations/updateEstimate"
-import getEstimate from "app/estimates/queries/getEstimate"
+import getEstimateCustomers from "app/estimates/queries/getEstimateCustomer"
 import type { EstimateData, EstimateInput } from "app/estimates/types"
 import { BlitzPage, GetServerSideProps } from "blitz"
+import dayjs from "dayjs"
 // @ts-ignore
 import SpaceGrotesk from "public/fonts/SpaceGrotesk-Regular.woff"
 import { Suspense, useEffect, useState } from "react"
@@ -86,7 +86,9 @@ const PDF = ({ estimate }: PDFProps) => {
           </View>
           <View style={{ marginLeft: "auto" }}>
             <Text>Date du devis</Text>
-            <Text style={{ marginTop: "8px" }}>09 août 2021</Text>
+            <Text style={{ marginTop: "8px" }}>
+              {dayjs(estimate?.creationDate).format("DD MMMM YYYY")}
+            </Text>
           </View>
           <View style={{ marginLeft: "48px" }}>
             <Text>Expiration du devis</Text>
@@ -179,8 +181,7 @@ const PDF = ({ estimate }: PDFProps) => {
 
 export const getServerSideProps: GetServerSideProps<Props, Params> = async ({ params }) => {
   const { id } = params!
-  const estimate = await getEstimate(id)
-  const customers = await getCustomers()
+  const { estimate, customers } = await getEstimateCustomers(id)
   return { props: { estimate, customers } }
 }
 
@@ -192,7 +193,6 @@ const Estimate: BlitzPage<Props> = ({ estimate, ...rest }) => {
       <EstimateForm
         title="Modifier le devis"
         onSubmit={async (data) => {
-          console.log(data)
           await updateEstimate({ id: estimate.id, data })
           setPdf(data)
         }}
@@ -211,5 +211,7 @@ const Estimate: BlitzPage<Props> = ({ estimate, ...rest }) => {
     </Layout>
   )
 }
+
+Estimate.authenticate = { redirectTo: "/login" }
 
 export default Estimate

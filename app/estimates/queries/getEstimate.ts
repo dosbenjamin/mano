@@ -3,11 +3,9 @@ import { gql } from "graphql-request"
 import type { EstimateData } from "../types"
 
 const getEstimate = async (id: string) => {
-  const {
-    findEstimateByID,
-  }: {
+  const { findEstimateByID: estimate } = await db.request<{
     findEstimateByID: EstimateData
-  } = await db.request(
+  }>(
     gql`
       query GetEstimate($id: ID!) {
         findEstimateByID(id: $id) {
@@ -15,6 +13,8 @@ const getEstimate = async (id: string) => {
           description
           priceWithoutVat
           priceWithVat
+          creationDate
+          expirationDate
           customer {
             id: _id
           }
@@ -32,7 +32,7 @@ const getEstimate = async (id: string) => {
     { id }
   )
 
-  return { ...findEstimateByID }
+  return estimate
 }
 
 export default getEstimate

@@ -5,6 +5,7 @@ import Header from "app/components/Header"
 import Input from "app/components/Input"
 import type { CustomerData } from "app/customers/types"
 import type { EstimateData, EstimateInput } from "app/estimates/types"
+import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import ServiceLine from "../ServiceLine"
@@ -24,10 +25,14 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
 
   const { control, getValues, handleSubmit, register, setValue } = useForm<EstimateInput>({
     defaultValues: {
-      customer: estimate?.customer.id,
+      customer: estimate?.customer?.id,
       description: estimate?.description || "",
       priceWithoutVat,
       priceWithVat,
+      creationDate: estimate?.creationDate || dayjs().format("YYYY-MM-DD"),
+      expirationDate:
+        estimate?.expirationDate ||
+        dayjs(estimate?.creationDate).add(1, "month").format("YYYY-MM-DD"),
       services: estimate?.services || [],
     },
   })
@@ -49,10 +54,7 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
         priceWithoutVat: total.priceWithoutVat + priceWithoutVat,
         priceWithVat: total.priceWithVat + priceWithVat,
       }),
-      {
-        priceWithoutVat: 0,
-        priceWithVat: 0,
-      }
+      { priceWithoutVat: 0, priceWithVat: 0 }
     )
 
     setPriceWithoutVat(priceWithoutVat)
@@ -104,8 +106,8 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
             />
           </VStack>
           <HStack w="100%" spacing="4">
-            <Input label="Création" type="date" />
-            <Input label="Expiration" type="date" />
+            <Input label="Création" type="date" {...register("creationDate")} />
+            <Input label="Expiration" type="date" {...register("expirationDate")} />
           </HStack>
           <HStack spacing="8" w="100%">
             <Box w="50%">
