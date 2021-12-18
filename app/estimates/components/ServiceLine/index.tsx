@@ -65,7 +65,8 @@ const ServiceLine = ({
             h="24px"
             w="24px"
             aria-label="Supprimer le service"
-            onClick={() => {
+            onClick={(event) => {
+              event.stopPropagation()
               remove(index)
               updateTotalPrices()
             }}
