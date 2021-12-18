@@ -66,7 +66,7 @@ const Customers: BlitzPage = () => {
     <Layout>
       <Container>
         <Header title="Tous les clients">
-          <GrayButton onClick={() => router.push("/customers/new")}>Ajouter un client</GrayButton>
+          <GrayButton onClick={() => router.push("/customers/add")}>Ajouter un client</GrayButton>
         </Header>
         <Suspense fallback="Loading...">
           <CustomersList />
