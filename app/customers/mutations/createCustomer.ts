@@ -15,6 +15,7 @@ const createCustomer = async (data: CustomerInput) => {
           zip
           city
           country
+          vat
         }
       }
     `,

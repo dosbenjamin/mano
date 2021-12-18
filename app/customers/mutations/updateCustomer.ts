@@ -15,6 +15,7 @@ const updateCustomer = async ({ id, data }: { id: string; data: CustomerData }) 
           zip
           city
           country
+          vat
         }
       }
     `,
