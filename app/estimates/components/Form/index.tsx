@@ -22,10 +22,11 @@ type Props = {
 const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, setPDF }: Props) => {
   const [priceWithoutVat, setPriceWithoutVat] = useState(estimate?.priceWithoutVat || 0)
   const [priceWithVat, setPriceWithVat] = useState(estimate?.priceWithVat || 0)
+  const [customer, setCustomer] = useState(estimate?.customer.id || "")
 
   const { control, getValues, handleSubmit, register, setValue } = useForm<EstimateInput>({
     defaultValues: {
-      customer: estimate?.customer?.id,
+      customer,
       description: estimate?.description || "",
       priceWithoutVat,
       priceWithVat,
@@ -64,7 +65,7 @@ const EstimateForm = ({ children, customers = [], estimate, title, onSubmit, set
     setValue("priceWithVat", priceWithoutVat)
   }
 
-  useEffect(() => setPDF && setPDF(getValues()), [priceWithoutVat, priceWithVat])
+  useEffect(() => setPDF && setPDF(getValues()), [priceWithVat, customer])
 
   return (
     <Container as="form" onSubmit={handleSubmit(onSubmit)}>

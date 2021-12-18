@@ -3,6 +3,8 @@ import { gql } from "graphql-request"
 import type { CustomerData } from "../types"
 
 const getCustomer = async (id: string) => {
+  if (!id) return
+
   const { findCustomerByID: customer } = await db.request<{
     findCustomerByID: CustomerData
   }>(

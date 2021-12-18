@@ -2,13 +2,15 @@ import { HStack } from "@chakra-ui/react"
 import { Document, Font, Link, Page, StyleSheet, Text, usePDF, View } from "@react-pdf/renderer"
 import GrayButton from "app/components/GrayButton"
 import RedButton from "app/components/RedButton"
+import getCustomer from "app/customers/queries/getCustomer"
 import type { CustomerData } from "app/customers/types"
 import deleteEstimate from "app/estimates/mutations/deleteEstimate"
 import updateEstimate from "app/estimates/mutations/updateEstimate"
 import getEstimateCustomers from "app/estimates/queries/getEstimateCustomer"
 import type { EstimateData, EstimateInput } from "app/estimates/types"
-import { BlitzPage, GetServerSideProps } from "blitz"
+import { BlitzPage, GetServerSideProps, useQuery } from "blitz"
 import dayjs from "dayjs"
+import "dayjs/locale/fr"
 // @ts-ignore
 import SpaceGrotesk from "public/fonts/SpaceGrotesk-Regular.woff"
 import { Suspense, useEffect, useState } from "react"
@@ -22,11 +24,15 @@ type Props = {
 
 type Params = { id: string }
 
-type PDFProps = { estimate?: EstimateInput }
+type DownloadLinkProps = { estimate?: EstimateInput }
+type PDFProps = { estimate?: EstimateInput; customer?: CustomerData }
 
-const DownloadLink = ({ estimate }: PDFProps) => {
-  const [instance, updateInstance] = usePDF({ document: <PDF estimate={estimate} /> })
-  useEffect(() => updateInstance(), [estimate])
+const DownloadLink = ({ estimate }: DownloadLinkProps) => {
+  const [customer] = useQuery(getCustomer, estimate?.customer!)
+  const [instance, updateInstance] = usePDF({
+    document: <PDF estimate={estimate} customer={customer} />,
+  })
+  useEffect(() => updateInstance(), [customer])
 
   return (
     <GrayButton as="a" href={instance.url || ""} download="estimate.pdf">
@@ -47,7 +53,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const PDF = ({ estimate }: PDFProps) => {
+const PDF = ({ estimate, customer }: PDFProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -79,20 +85,26 @@ const PDF = ({ estimate }: PDFProps) => {
         >
           <View>
             <Text>Envoyé à</Text>
-            <Text style={{ marginTop: "8px" }}>Benjamin Dos Santos</Text>
-            <Text>Avenue Albert 1er 299</Text>
-            <Text>1332 Genval</Text>
-            <Text>Belgique</Text>
+            <Text style={{ marginTop: "8px" }}>{customer?.name}</Text>
+            <Text>
+              {customer?.street} {customer?.number}
+            </Text>
+            <Text>
+              {customer?.zip} {customer?.city}
+            </Text>
+            <Text>{customer?.country}</Text>
           </View>
           <View style={{ marginLeft: "auto" }}>
             <Text>Date du devis</Text>
             <Text style={{ marginTop: "8px" }}>
-              {dayjs(estimate?.creationDate).format("DD MMMM YYYY")}
+              {dayjs(estimate?.creationDate).locale("fr").format("DD MMMM YYYY")}
             </Text>
           </View>
           <View style={{ marginLeft: "48px" }}>
             <Text>Expiration du devis</Text>
-            <Text style={{ marginTop: "8px" }}>30 septembre 2021</Text>
+            <Text style={{ marginTop: "8px" }}>
+              {dayjs(estimate?.expirationDate).locale("fr").format("DD MMMM YYYY")}
+            </Text>
           </View>
         </View>
         <View
